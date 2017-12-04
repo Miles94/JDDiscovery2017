@@ -1,4 +1,4 @@
-
+# -*- coding:utf-8 -*-  
 
 from sklearn.cross_validation import train_test_split
 import pandas as pd
@@ -9,25 +9,25 @@ warnings.filterwarnings('ignore')
 
 random_seed = 1201
 
-#¶ÁÈëÊı¾İ
+#è¯»å…¥æ•°æ®
 feature_csv = pd.read_csv('../feature/feature001.csv')
 feature_test_csv = pd.read_csv('../feature/feature_test001.csv')
 
-#Ñ¡È¡ÑµÁ·¼¯ºÍ²âÊÔ¼¯
+#é€‰å–è®­ç»ƒé›†å’Œæµ‹è¯•é›†
 train_raw = feature_csv.drop(['rowkey', 'trade_time', 'id','city','device','ip'], axis=1)
 test = feature_test_csv.drop(['rowkey', 'trade_time', 'id','city','device','ip'], axis=1)
 rowkeytest = feature_test_csv['rowkey']
 
 print "neg:{0},pos:{1}".format(len(train_raw[train_raw['is_risk']==0]),len(train_raw[train_raw['is_risk']==1]))
 
-#»®·ÖÑµÁ·¼¯ÓëÑéÖ¤¼¯
+#åˆ’åˆ†è®­ç»ƒé›†ä¸éªŒè¯é›†
 train,val = train_test_split(train_raw, test_size = 0.2,random_state=1)
 y = train['is_risk']
 X = train.drop(['is_risk'],axis=1)
 val_y = val['is_risk']
 val_X = val.drop(['is_risk'],axis=1)
 
-#×Ô¶¨ÒåÆÀ¼Ûº¯Êı
+#è‡ªå®šä¹‰è¯„ä»·å‡½æ•°
 from sklearn.metrics import confusion_matrix
 def customedscore(preds, dtrain):
     label = dtrain.get_label()
